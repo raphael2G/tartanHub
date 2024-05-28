@@ -27,6 +27,7 @@ const styles = StyleSheet.create({
   },
   time: {
     fontSize: 48,
+    color: "white",
   },
 });
 

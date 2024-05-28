@@ -31,19 +31,24 @@ const useStopwatch = () => {
     };
 
     const stopStopwatch = () => {
-        if (isRunning && intervalRef.current) {
-          clearInterval(intervalRef.current);
-          setIsRunning(false);
-          isServeRef.current = false; 
-        }
+      setIsRunning(false);
+
+      if (isRunning && intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
+
+      if (time >= 1) {
+        isServeRef.current = false;
+      }
     };
 
     const resetStopwatch = () => {
+        console.log("resetStopwatch");
         if (intervalRef.current) {
           clearInterval(intervalRef.current);
         }
-        setTime(0);
         setIsRunning(false);
+        setTime(0);
         isServeRef.current = true; 
       };
 

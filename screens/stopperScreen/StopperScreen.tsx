@@ -1,5 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { StyleSheet, View, TouchableWithoutFeedback, TouchableOpacity } from 'react-native';
 import StopwatchControls from './components/stopwatchControls';
 import StopwatchDisplay from './components/stopwatchDisplay';
 import useStopwatch from './components/useStopwatch';
@@ -14,10 +13,23 @@ const StopperScreen: React.FC = () => {
     resetStopwatch,
   } = useStopwatch();
 
+  const handleScreenPress = () => {
+    console.log("handleScreenPress");
+    if (isRunning) {
+      stopStopwatch();
+    } else {
+      startStopwatch();
+    }
+  }
+
 
   return (
     <View style={styles.container}>
-      <StopwatchDisplay time={time} isServe={isServe} />
+      <TouchableWithoutFeedback onPressIn={handleScreenPress}>
+        <View style={styles.touchableArea}>
+          <StopwatchDisplay time={time} isServe={isServe} />
+        </View>
+      </TouchableWithoutFeedback>
       <StopwatchControls
         isRunning={isRunning}
         onStart={startStopwatch}
@@ -31,9 +43,18 @@ const StopperScreen: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: 'black',
+  },
+  touchableArea: {
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 16,
+  },
+  controlsContainer: {
+    justifyContent: 'flex-end',
+    flexDirection: 'row',
+    width: '100%',
+    paddingBottom: 20,
   },
 });
 
