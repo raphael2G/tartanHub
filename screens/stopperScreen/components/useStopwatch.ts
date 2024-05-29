@@ -43,7 +43,6 @@ const useStopwatch = () => {
     };
 
     const resetStopwatch = () => {
-        console.log("resetStopwatch");
         if (intervalRef.current) {
           clearInterval(intervalRef.current);
         }

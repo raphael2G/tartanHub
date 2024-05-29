@@ -14,7 +14,6 @@ const StopperScreen: React.FC = () => {
   } = useStopwatch();
 
   const handleScreenPress = () => {
-    console.log("handleScreenPress");
     if (isRunning) {
       stopStopwatch();
     } else {
