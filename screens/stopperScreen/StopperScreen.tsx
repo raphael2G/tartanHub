@@ -21,13 +21,13 @@ const StopperScreen: React.FC = () => {
       startStopwatch();
     }
   }
-
+  
 
   return (
     <View style={styles.container}>
       <TouchableWithoutFeedback onPressIn={handleScreenPress}>
         <View style={styles.touchableArea}>
-          <StopwatchDisplay time={time} isServe={isServe} />
+          <StopwatchDisplay time={time} isServe={isServe} isRunning={isRunning}/>
         </View>
       </TouchableWithoutFeedback>
       <StopwatchControls

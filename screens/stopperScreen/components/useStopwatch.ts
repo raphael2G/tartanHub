@@ -52,10 +52,8 @@ const useStopwatch = () => {
         isServeRef.current = true; 
       };
 
-      const formattedTime = isRunning ?  Math.floor(time) : parseFloat(time.toFixed(3));
-
       return {
-        time : formattedTime,
+        time,
         isRunning,
         isServe: isServeRef.current,
         startStopwatch,
