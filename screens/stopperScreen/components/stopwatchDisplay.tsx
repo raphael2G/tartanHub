@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet} from 'react-native';
-import { TouchableOpacity } from 'react-native';
+import { GestureHandlerRootView, TapGestureHandler, State } from 'react-native-gesture-handler';
+
 
 
 interface StopwatchDisplayProps {
@@ -15,18 +16,28 @@ const formatTime = (time: number, isServe: boolean) => {
   const milliseconds = time % 1000;
   const seconds = Math.floor(time / 1000);
 
-  return isServe ? `${seconds.toString()}` : `${seconds.toString()}.${milliseconds.toString().padStart(3, '0')}`;
+  return false ? `${seconds.toString()}` : `${seconds.toString()}.${milliseconds.toString().padStart(3, '0')}`;
 };
 
+
+
 const StopwatchDisplay: React.FC<StopwatchDisplayProps> = ({ time, isServe, isRunning, onStart, onStop }) => {
+  
+  const handleScreenStateChange = (e: any) => {
+    if (e.nativeEvent.state === State.BEGAN) {
+      if (isRunning) {onStop();} 
+      else {onStart();}
+    }
+  }
+  
   return (
-    <TouchableOpacity 
-      style={styles.container}
-      onPressIn={isRunning ? onStop : onStart}
-      activeOpacity={1}
-    >
-      <Text style={styles.time}>{formatTime(time, isServe)}</Text>
-    </TouchableOpacity>
+    <GestureHandlerRootView >
+      <TapGestureHandler  onHandlerStateChange={handleScreenStateChange}>
+        <View style={styles.container}>
+          <Text style={styles.time}>{formatTime(time, isServe)}</Text>
+        </View>
+      </TapGestureHandler>
+    </GestureHandlerRootView>
   );
 };
 
@@ -38,6 +49,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'black',
     position: 'relative',
+    top: "35%"
   },
   time: {
     fontSize: 48,

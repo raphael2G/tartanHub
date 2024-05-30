@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, StyleSheet, Text } from 'react-native';
-import { TouchableOpacity } from 'react-native';
+import { GestureHandlerRootView, TapGestureHandler, State } from 'react-native-gesture-handler';
+
 
 interface StopwatchControlsProps {
   isRunning: boolean;
@@ -11,29 +12,42 @@ interface StopwatchControlsProps {
 
 const StopwatchControls: React.FC<StopwatchControlsProps> = ({ isRunning, onStart, onStop, onReset }) => {
   
+  const handleResetButtonStateChange = (e: any) => {
+    if (e.nativeEvent.state === State.BEGAN) {
+      onReset();
+    }
+  };
+
+  const handleStopStartButtonStateChange = (e: any) => {
+    if (e.nativeEvent.state === State.BEGAN) {
+      if (isRunning) {onStop();} 
+      else {onStart();}
+    }
+  }
+
   // This creates the reset button and the start/stop buttons
   return (
-    <View style={styles.container}>
+    <GestureHandlerRootView style={styles.container}>
 
       {/* Reset Button */}
-      <TouchableOpacity 
-        style={[styles.button, isRunning ? styles.resetButtonOutline : styles.resetButtonFilled]} 
-        onPressIn={onReset} 
-        activeOpacity={1}
-      >
-        <Text style={styles.buttonText}>Reset</Text>
-      </TouchableOpacity>
+      <TapGestureHandler  onHandlerStateChange={handleResetButtonStateChange}>
+        <View 
+          style={[styles.button, isRunning ? styles.resetButtonOutline : styles.resetButtonFilled]} 
+        >
+          <Text style={styles.buttonText}>Reset</Text>
+        </View>
+      </TapGestureHandler>
+
 
       {/* Start/Stop Button */}
-      <TouchableOpacity 
-        style={[styles.button, styles.startButton]} 
-        onPressIn={isRunning ? onStop : onStart}
-        activeOpacity={1}
-      >
-        <Text style={styles.buttonText}>{isRunning ? 'Stop' : 'Start'}</Text>
-      </TouchableOpacity>
+      <TapGestureHandler onHandlerStateChange={handleStopStartButtonStateChange}>
+        <View style={[styles.button, styles.startButton]} >
+          <Text style={styles.buttonText}>{isRunning ? 'Stop' : 'Start'}</Text>
+        </View>
+      </TapGestureHandler>
 
-    </View>
+    </GestureHandlerRootView>
+
   );
 };
 
