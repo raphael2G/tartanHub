@@ -4,19 +4,24 @@ import { View, Text, StyleSheet } from 'react-native';
 interface StopwatchDisplayProps {
   time: number;
   isServe: boolean;
+  isRunning: boolean;
 }
 
-const formatTime = (time: number, isServe: boolean) => {
+const formatTime = (time: number, isServe: boolean, isRunning: boolean) => {
   const milliseconds = time % 1000;
   const seconds = Math.floor(time / 1000);
 
-  return isServe ? `${seconds.toString()}` : `${seconds.toString()}.${milliseconds.toString().padStart(3, '0')}`;
+  if (isRunning || isServe) {
+    return `${seconds.toString()}`;
+  } else {
+    return `${seconds.toString()}.${milliseconds.toString().padStart(3, '0')}`; 
+  }
 };
 
-const StopwatchDisplay: React.FC<StopwatchDisplayProps> = ({ time, isServe }) => {
+const StopwatchDisplay: React.FC<StopwatchDisplayProps> = ({ time, isServe, isRunning }) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.time}>{formatTime(time, isServe)}</Text>
+      <Text style={styles.time}>{formatTime(time, isServe, isRunning)}</Text>
     </View>
   );
 };
@@ -26,7 +31,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   time: {
-    fontSize: 48,
+    fontSize: 128,
     color: "white",
   },
 });
