@@ -14,6 +14,15 @@ const StopwatchControls: React.FC<StopwatchControlsProps> = ({ isRunning, onStar
   return (
     <View style={styles.container}>
 
+      {/* Start/Stop Button */}
+      <TouchableOpacity 
+        style={[styles.button, isRunning ? styles.stopButton : styles.startButton]} 
+        onPressIn={isRunning ? onStop : onStart}
+        activeOpacity={1}
+      >
+        <Text style={styles.buttonText}>{isRunning ? 'Stop' : 'Start'}</Text>
+      </TouchableOpacity>
+
       {/* Reset Button */}
       <TouchableOpacity 
         style={[styles.button, isRunning ? styles.resetButtonOutline : styles.resetButtonFilled]} 
@@ -24,14 +33,7 @@ const StopwatchControls: React.FC<StopwatchControlsProps> = ({ isRunning, onStar
         <Text style={styles.buttonText}>Reset</Text>
       </TouchableOpacity>
 
-      {/* Start/Stop Button */}
-      <TouchableOpacity 
-        style={[styles.button, styles.startButton]} 
-        onPressIn={isRunning ? onStop : onStart}
-        activeOpacity={1}
-      >
-        <Text style={styles.buttonText}>{isRunning ? 'Stop' : 'Start'}</Text>
-      </TouchableOpacity>
+      
 
     </View>
   );
@@ -54,6 +56,9 @@ const styles = StyleSheet.create({
   },
   startButton: {
     backgroundColor: 'green',
+  },
+  stopButton: {
+    backgroundColor: 'red',
   },
   resetButtonFilled: {
     backgroundColor: '#007BFF',

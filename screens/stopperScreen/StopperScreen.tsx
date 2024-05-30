@@ -1,4 +1,4 @@
-import { StyleSheet, View, TouchableWithoutFeedback, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import StopwatchControls from './components/stopwatchControls';
 import StopwatchDisplay from './components/stopwatchDisplay';
 import useStopwatch from './components/useStopwatch';
@@ -14,28 +14,30 @@ const StopperScreen: React.FC = () => {
   } = useStopwatch();
 
   const handleScreenPress = () => {
+    // console.log('Single tap detected');
     if (isRunning) {
       stopStopwatch();
     } else {
       startStopwatch();
     }
-  }
-  
+  };
 
   return (
-    <View style={styles.container}>
-      <TouchableWithoutFeedback onPressIn={handleScreenPress}>
-        <View style={styles.touchableArea}>
-          <StopwatchDisplay time={time} isServe={isServe} isRunning={isRunning}/>
-        </View>
-      </TouchableWithoutFeedback>
-      <StopwatchControls
-        isRunning={isRunning}
-        onStart={startStopwatch}
-        onStop={stopStopwatch}
-        onReset={resetStopwatch}
-      />
-    </View>
+    <TouchableOpacity
+      onPressIn={handleScreenPress}
+      style={styles.container}>
+      <View style={styles.touchableArea}>
+        <StopwatchDisplay time={time} isServe={isServe} isRunning={isRunning} />
+      </View>
+      <View style={styles.controlsContainer}>
+        <StopwatchControls
+          isRunning={isRunning}
+          onStart={startStopwatch}
+          onStop={stopStopwatch}
+          onReset={resetStopwatch}
+        />
+      </View>
+    </TouchableOpacity>
   );
 };
 
