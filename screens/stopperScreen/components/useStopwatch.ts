@@ -16,21 +16,29 @@ const useStopwatch = () => {
     }, []);
 
     const startStopwatch = () => {
+        console.log("startStopwatch");
         if (!isRunning) {
+            console.log("in starting if statement");
             const startTime = Date.now() - time;
             startTimeRef.current = startTime;
 
             intervalRef.current = setInterval(() => {
+                console.log("in interval");
                 const currentTime = Date.now();
                 const elapsedTime = currentTime - startTime;
                 setTime(elapsedTime);
+                console.log(elapsedTime - time);
             }, 1);
 
+
             setIsRunning(true);
+        } else {
+          console.log("STARTING BUT ALREADY RUNNING");
         }
     };
 
-    const stopStopwatch = () => {
+    const stopStopwatch = () => { 
+      console.log("stop stopwatch");
       setIsRunning(false);
 
       if (isRunning && intervalRef.current) {
