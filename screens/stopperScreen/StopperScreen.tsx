@@ -1,4 +1,4 @@
-import { StyleSheet, View, TouchableWithoutFeedback, TouchableOpacity } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import StopwatchControls from './components/stopwatchControls';
 import StopwatchDisplay from './components/stopwatchDisplay';
 import useStopwatch from './components/useStopwatch';
@@ -15,22 +15,18 @@ const StopperScreen: React.FC = () => {
   } = useStopwatch();
 
   const startTouchDisplay = () => {
-    console.log("startTouchDisplay");
     startStopwatch();
   };
 
   const stopTouchDisplay = () => {
-    console.log("stopTouchDisplay");
     stopStopwatch();
   };
 
   const startButton = () => {
-    console.log("startButton");
     startStopwatch();
   };
 
   const stopButton = () => {
-    console.log("stopButton");
     stopStopwatch();
   };
 
@@ -73,3 +69,4 @@ const styles = StyleSheet.create({
 });
 
 export default StopperScreen;
+
