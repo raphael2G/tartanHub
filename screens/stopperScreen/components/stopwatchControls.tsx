@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, StyleSheet, TouchableOpacity, Text } from 'react-native';
+import { View, StyleSheet, Text } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 
 interface StopwatchControlsProps {
   isRunning: boolean;
@@ -18,7 +19,6 @@ const StopwatchControls: React.FC<StopwatchControlsProps> = ({ isRunning, onStar
       <TouchableOpacity 
         style={[styles.button, isRunning ? styles.resetButtonOutline : styles.resetButtonFilled]} 
         onPressIn={onReset} 
-        disabled={isRunning}
         activeOpacity={1}
       >
         <Text style={styles.buttonText}>Reset</Text>
@@ -44,13 +44,14 @@ const styles = StyleSheet.create({
     width: '100%',
     position: 'absolute',
     bottom: 20,
+    backgroundColor: "blue"
   },
   button: {
     padding: 15,
     borderRadius: 5,
     alignItems: 'center',
     justifyContent: 'center',
-    width: '40%',
+    width: 100
   },
   startButton: {
     backgroundColor: 'green',

@@ -3,6 +3,7 @@ import StopwatchControls from './components/stopwatchControls';
 import StopwatchDisplay from './components/stopwatchDisplay';
 import useStopwatch from './components/useStopwatch';
 
+
 const StopperScreen: React.FC = () => {
   const {
     time,
@@ -13,37 +14,50 @@ const StopperScreen: React.FC = () => {
     resetStopwatch,
   } = useStopwatch();
 
-  const handleScreenPress = () => {
-    console.log("handleScreenPress");
-    if (isRunning) {
-      stopStopwatch();
-    } else {
-      startStopwatch();
-    }
-  }
+  const startTouchDisplay = () => {
+    console.log("startTouchDisplay");
+    startStopwatch();
+  };
 
+  const stopTouchDisplay = () => {
+    console.log("stopTouchDisplay");
+    stopStopwatch();
+  };
+
+  const startButton = () => {
+    console.log("startButton");
+    startStopwatch();
+  };
+
+  const stopButton = () => {
+    console.log("stopButton");
+    stopStopwatch();
+  };
 
   return (
-    <View style={styles.container}>
-      <TouchableWithoutFeedback onPressIn={handleScreenPress}>
-        <View style={styles.touchableArea}>
-          <StopwatchDisplay time={time} isServe={isServe} />
-        </View>
-      </TouchableWithoutFeedback>
-      <StopwatchControls
-        isRunning={isRunning}
-        onStart={startStopwatch}
-        onStop={stopStopwatch}
-        onReset={resetStopwatch}
-      />
-    </View>
+      <View style={styles.container}>
+        <StopwatchDisplay 
+          time={time} 
+          isServe={isServe} 
+          isRunning={isRunning}
+          onStart={startTouchDisplay}
+          onStop={stopTouchDisplay}
+        />
+        <StopwatchControls
+          isRunning={isRunning}
+          onStart={startButton}
+          onStop={stopButton}
+          onReset={resetStopwatch}
+        />
+      </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'black',
+    backgroundColor: 'grey',
+    justifyContent: 'center',
   },
   touchableArea: {
     flex: 1,
